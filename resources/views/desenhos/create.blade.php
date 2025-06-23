@@ -6,7 +6,10 @@
         @csrf
         <div class="mb-3">
             <label for="titulo" class="form-label">Título</label>
-            <input type="text" class="form-control" name="titulo" id="titulo" required>
+            <input type="text" class="form-control @error('titulo') is-invalid @enderror" name="titulo" id="titulo" value="{{ old('titulo') }}" required>
+            @error('titulo')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
         <div class="mb-3">
             <label for="descricao" class="form-label">Descrição</label>
@@ -18,7 +21,10 @@
         </div>
         <div class="mb-3">
             <label for="caminho_imagem" class="form-label">Imagem</label>
-            <input type="file" class="form-control" name="caminho_imagem" id="caminho_imagem" required>
+            <input type="file" class="form-control @error('caminho_imagem') is-invalid @enderror" name="caminho_imagem" id="caminho_imagem" required>
+            @error('caminho_imagem')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
         <div class="mb-3">
             <label for="desafios_id" class="form-label">Desafio (opcional)</label>

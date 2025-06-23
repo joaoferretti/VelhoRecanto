@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Desafio extends Model
+class Desafios extends Model
 {
     use HasFactory;
 
@@ -19,6 +19,6 @@ class Desafio extends Model
 
     public function desenhos()
     {
-        return $this->hasMany(Desenho::class);
+        return $this->hasMany(Desenhos::class);
     }
 }

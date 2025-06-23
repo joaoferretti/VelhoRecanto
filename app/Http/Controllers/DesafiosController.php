@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Desafio;
+use App\Models\Desafios;
 use Illuminate\Http\Request;
 
-class DesafioController extends Controller
+class DesafiosController extends Controller
 {
     public function index()
     {
-        $desafios = Desafio::latest()->paginate(10);
+        $desafios = Desafios::all();
         return view('desafios.index', compact('desafios'));
     }
 
@@ -21,41 +21,42 @@ class DesafioController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nome_desafio' => 'required',
-            'descricao_desafio' => 'required',
+            'nome_desafio' => 'required|string|max:255',
+            'descricao_desafio' => 'required|string', 
             'data_inicio' => 'required|date',
             'data_fim' => 'nullable|date|after_or_equal:data_inicio',
-            'cor' => 'required|regex:/^#[0-9A-Fa-f]{6}$/',
+            'cor' => 'required|string|max:7',
         ]);
 
-        Desafio::create($request->all());
+        // O método create() aceita um array de atributos
+        Desafios::create($request->all());
 
-        return redirect()->route('desafios.index');
+        return redirect()->route('desafios.index')->with('success', 'Desafio criado com sucesso.');
     }
 
-    public function edit(Desafio $desafio)
+    public function edit(Desafios $desafio)
     {
         return view('desafios.edit', compact('desafio'));
     }
 
-    public function update(Request $request, Desafio $desafio)
+    public function update(Request $request, Desafios $desafio)
     {
         $request->validate([
-            'nome_desafio' => 'required',
-            'descricao_desafio' => 'required',
+            'nome_desafio' => 'required|string|max:255',
+            'descricao_desafio' => 'required|string', 
             'data_inicio' => 'required|date',
             'data_fim' => 'nullable|date|after_or_equal:data_inicio',
-            'cor' => 'required|regex:/^#[0-9A-Fa-f]{6}$/',
+            'cor' => 'required|string|max:7',
         ]);
 
         $desafio->update($request->all());
 
-        return redirect()->route('desafios.index');
+        return redirect()->route('desafios.index')->with('success', 'Desafio atualizado com sucesso.');
     }
 
-    public function destroy(Desafio $desafio)
+    public function destroy(Desafios $desafio)
     {
         $desafio->delete();
-        return redirect()->route('desafios.index');
+        return redirect()->route('desafios.index')->with('success', 'Desafio excluído com sucesso.');
     }
 }

@@ -2,37 +2,65 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Desenho;
-use App\Models\Desafio;
+use App\Models\Desenhos;
+use App\Models\Desafios;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class DesenhoController extends Controller
+class DesenhosController extends Controller
 {
-    public function index()
+
+    use AuthorizesRequests; 
+
+    public function index(Request $request)
     {
-        $desenhos = Desenho::with('user', 'desafio')->get();
-        return view('desenhos.index', compact('desenhos'));
+        $query = Desenhos::with('user', 'desafio');
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('titulo', 'like', "%$search%")
+                ->orWhere('descricao', 'like', "%$search%");
+            });
+        }
+
+        if ($request->filled('desafio_id')) {
+            $query->where('desafios_id', $request->input('desafio_id'));
+        }
+
+        if ($request->boolean('meus')) {
+            $query->where('user_id', auth()->id());
+        }
+
+        $sortBy = $request->input('sort_by', 'data_criacao');
+        $direction = $request->input('direction', 'desc');
+
+        $desenhos = $query->orderBy($sortBy, $direction)->get();
+        $desafios = Desafios::all();
+
+        return view('desenhos.index', compact('desenhos', 'desafios'));
     }
 
     public function create()
     {
-        $desafios = Desafio::all();
+        $desafios = Desafios::all();
         return view('desenhos.create', compact('desafios'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'titulo' => 'required',
-            'descricao' => 'required',
+            'titulo' => 'required|string|max:255',
+            'descricao' => 'required|string',
             'data_criacao' => 'required|date',
-            'caminho_imagem' => 'required|image',
+            'caminho_imagem' => 'required|max:2048',
+            'desafios_id' => 'nullable|exists:desafios,id',
         ]);
 
         $path = $request->file('caminho_imagem')->store('desenhos', 'public');
 
-        Desenho::create([
+        Desenhos::create([
             'titulo' => $request->titulo,
             'descricao' => $request->descricao,
             'data_criacao' => $request->data_criacao,
@@ -44,14 +72,14 @@ class DesenhoController extends Controller
         return redirect()->route('desenhos.index');
     }
 
-    public function edit(Desenho $desenho)
+    public function edit(Desenhos $desenho)
     {
         $this->authorize('update', $desenho);
-        $desafios = Desafio::all();
+        $desafios = Desafios::all();
         return view('desenhos.edit', compact('desenho', 'desafios'));
     }
 
-    public function update(Request $request, Desenho $desenho)
+    public function update(Request $request, Desenhos $desenho)
     {
         $this->authorize('update', $desenho);
 
@@ -66,12 +94,16 @@ class DesenhoController extends Controller
             $desenho->caminho_imagem = $path;
         }
 
-        $desenho->update($request->only('titulo', 'descricao', 'data_criacao', 'desafios_id'));
-
+        $desenho->update([
+            'titulo' => $request->titulo,
+            'descricao' => $request->descricao,
+            'data_criacao' => $request->data_criacao,
+            'desafios_id' => $request->desafios_id,
+        ]);
         return redirect()->route('desenhos.index');
     }
 
-    public function destroy(Desenho $desenho)
+    public function destroy(Desenhos $desenho)
     {
         $this->authorize('delete', $desenho);
         $desenho->delete();

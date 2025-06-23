@@ -9,7 +9,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Logo</a>
+            <img src="/img/logo.png" width="3%" alt="Logo">
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link" href="/desenhos">Desenhos</a></li>

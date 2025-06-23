@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Desenho extends Model
+class Desenhos extends Model
 {
     use HasFactory;
 
@@ -15,7 +15,11 @@ class Desenho extends Model
         'data_criacao',
         'caminho_imagem',
         'user_id',
-        'desafio_id',
+        'desafios_id',
+    ];
+
+    protected $casts = [
+        'data_criacao' => 'datetime', 
     ];
 
     public function user()
@@ -25,6 +29,6 @@ class Desenho extends Model
 
     public function desafio()
     {
-        return $this->belongsTo(Desafio::class);
+        return $this->belongsTo(Desafios::class, 'desafios_id');
     }
 }
