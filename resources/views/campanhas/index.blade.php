@@ -15,9 +15,9 @@
                 <th>Descrição</th>
                 <th>Início</th>
                 <th>Fim</th>
-                @auth
                 <th>Tipo Objetivo</th>
                 <th>Objetivo</th>
+                @auth
                 <th>Cor</th>
                 <th>Ações</th>
                 @endauth

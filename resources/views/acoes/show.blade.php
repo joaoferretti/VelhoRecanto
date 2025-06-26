@@ -4,11 +4,13 @@
 <div class="max-w-2xl mx-auto p-6 bg-white rounded-2xl shadow-md mt-10 text-center">
 
     {{-- Imagem em estilo capa/thumbnail --}}
-    <div class="w-full h-64 overflow-hidden rounded-xl shadow-sm">
-        <img src="{{ asset('storage/' . $acao->caminho_imagem) }}"
-             alt="{{ $acao->titulo }}"
-             class="w-full h-full object-cover object-center">
-    </div>
+<div class="overflow-hidden rounded-xl shadow-sm w-12 h-12">
+    <img src="{{ asset('storage/' . $acao->caminho_imagem) }}"
+         alt="{{ $acao->titulo }}"
+         class="w-full h-full object-center"
+         height="200">
+
+</div>
 
     {{-- Título centralizado --}}
     <h1 class="text-4xl font-extrabold text-gray-800 mt-6">{{ $acao->titulo }}</h1>
@@ -39,10 +41,10 @@
     </div>
 
     {{-- Botão primário centralizado --}}
-    <div class="mt-6 flex justify-center">
-        <a href="#doar"
-           class="bg-green-600 hover:bg-green-700 text-white font-semibold text-lg px-8 py-3 rounded-full shadow-md transition !important">
-           Quero ajudar 💚
+    <div class="mt-10" id="doar">
+        <a href="#rodape"
+           class="btn btn-sm btn-success">
+           Doar agora
         </a>
     </div>
     <div class="bg-red-500 text-white p-2">Teste Tailwind</div>
@@ -58,20 +60,13 @@
     {{-- Informações para o doador --}}
     <div class="mt-8 text-left">
         <h2 class="text-2xl font-semibold text-gray-800 mb-2">Informações para o doador</h2>
-        <ul class="list-disc list-inside text-gray-700 space-y-1">
-            <li><strong>Campanha:</strong> {{ $acao->campanha->titulo ?? 'Nenhuma' }}</li>
-            <li><strong>Data da ação:</strong> {{ \Carbon\Carbon::parse($acao->data_criacao)->format('d/m/Y') }}</li>
-        </ul>
+            <strong>Campanha:</strong> {{ $acao->campanha->titulo ?? 'Nenhuma' }} - {{ \Carbon\Carbon::parse($acao->data_criacao)->format('d/m/Y') }}
     </div>
 
     {{-- Área de doação fixada no fim --}}
-    <div class="mt-10" id="doar">
-        <a href="#"
-           class="inline-block bg-green-600 hover:bg-green-700 text-white text-xl font-bold px-10 py-4 rounded-full shadow-lg transition">
-           Doar agora
-        </a>
+    <div class="mt-10" id="rodape">
+        Chave Pix: {{ $acao->chavepix }}
         <p class="text-sm text-gray-500 mt-2">Sua contribuição faz a diferença 🌱</p>
     </div>
-
 </div>
 @endsection

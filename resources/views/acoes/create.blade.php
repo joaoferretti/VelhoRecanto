@@ -31,6 +31,10 @@
             placeholder="Valor Alcançado" value="{{ request('valor_alcancado') }}">
         </div>
         <div class="mb-3">
+            <label for="chavepix" class="form-label">Chave Pix</label>
+            <input type="text" class="form-control @error('chavepix') is-invalid @enderror" name="chavepix" id="chavepix" value="{{ old('chavepix') }}" required>
+        </div>
+        <div class="mb-3">
             <label for="campanha_id" class="form-label">Campanha (opcional)</label>
             <select name="campanha_id" id="campanha_id" class="form-select">
                 <option value="">-- Nenhuma --</option>

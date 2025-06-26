@@ -31,7 +31,7 @@
         </div>
         <div class="mb-3">
             <input type="text" name="objetivo" id="objetivo" class="form-control"
-                placeholder="Objetivo" value="{{ request('objetivo') }}">
+                placeholder="Objetivo" value="{{ $campanha->objetivo }}">
         </div>
         <div class="mb-3">
             <label for="cor" class="form-label">Cor</label>

@@ -55,6 +55,7 @@ class AcoesController extends Controller
             'data_criacao' => 'required|date',
             'caminho_imagem' => 'required|image|max:2048',
             'valor_alcancado' => 'required|numeric|min:0',
+            'chavepix' => 'required|string',
             'campanha_id' => 'nullable|exists:campanhas,id',
         ]);
 
@@ -66,6 +67,7 @@ class AcoesController extends Controller
             'data_criacao' => $request->data_criacao,
             'caminho_imagem' => $path,
             'valor_alcancado' => $request->valor_alcancado,
+            'chavepix' => $request->chavepix,
             'user_id' => Auth::id(),
             'campanha_id' => $request->campanha_id,
         ]);
@@ -89,6 +91,7 @@ class AcoesController extends Controller
             'descricao' => 'required|string',
             'data_criacao' => 'required|date',
             'valor_alcancado' => 'nullable|numeric|min:0',
+            'chavepix' => 'required|string',
             'campanha_id' => 'nullable|exists:campanhas,id',
         ]);
 
@@ -102,6 +105,7 @@ class AcoesController extends Controller
             'descricao' => $request->descricao,
             'data_criacao' => $request->data_criacao,
             'valor_alcancado' => $request->valor_alcancado ?: '0',
+            'chavepix' => $request->chavepix,
             'campanha_id' => $request->campanha_id,
         ]);
 

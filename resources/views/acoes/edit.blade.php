@@ -35,7 +35,11 @@
         <div class="mb-3">
             <label for="valor_alcancado" class="form-label">Valor Alcançado (opcional)</label>
             <input type="integer" name="valor_alcancado" id="valor_alcancado" class="form-control"
-            placeholder="Valor Alcançado" value="{{ request('valor_alcancado') }}">
+            placeholder="Valor Alcançado" value="{{ $acao->valor_alcancado }}">
+        </div>
+        <div class="mb-3">
+            <label for="chavepix" class="form-label">Título</label>
+            <input type="text" class="form-control" name="chavepix" id="chavepix" value="{{ $acao->chavepix }}" required>
         </div>
         <button type="submit" class="btn btn-primary">Atualizar</button>
     </form>

@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->date('data_criacao');
             $table->string('caminho_imagem');
             $table->decimal('valor_alcancado', 12, 2)->default(0);
+            $table->string('chavepix');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('campanha_id')->nullable()->constrained('campanhas')->onDelete('set null');
             $table->timestamps();

@@ -30,6 +30,10 @@ class CampanhasController extends Controller
             'cor' => 'required|string|max:7',
         ]);
 
+        if(isset($request->objetivo)) {
+            $request->objetivo = '0';
+        }    
+
         Campanhas::create($request->all());
 
         return redirect()->route('campanhas.index')->with('success', 'Campanha criada com sucesso.');
@@ -48,7 +52,7 @@ class CampanhasController extends Controller
             'data_inicio' => 'required|date',
             'data_fim' => 'nullable|date|after_or_equal:data_inicio',
             'tipo_objetivo' => 'required|string|in:monetario,alcance,doacoes,voluntarios',
-            'objetivo' => 'required|numeric|min:0',
+            'objetivo' => 'numeric|min:0',
             'cor' => 'required|string|max:7',
         ]);
 

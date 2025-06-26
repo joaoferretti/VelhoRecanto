@@ -79,7 +79,7 @@
                             <button class="btn btn-sm btn-danger" onclick="return confirm('Excluir esta ação?')">Excluir</button>
                         </form>
                         @endauth
-                        <a href="{{ route('acoes.show', $acao) }}" class="btn btn-sm btn-warning">Ajudar</a>
+                        <a href="{{ route('acoes.show', $acao) }}" class="btn btn-sm btn-success">Ajudar</a>
                     </div>
                 </div>
             </div>

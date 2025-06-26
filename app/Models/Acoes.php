@@ -15,6 +15,7 @@ class Acoes extends Model
         'data_criacao',
         'caminho_imagem',
         'valor_alcancado',
+        'chavepix',
         'user_id',
         'campanha_id',
     ];
