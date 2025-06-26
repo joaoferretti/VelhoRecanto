@@ -4,30 +4,24 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
+return new class extends Migration {
     public function up(): void
     {
-        Schema::create('desenhos', function (Blueprint $table) {
+        Schema::create('acoes', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
             $table->text('descricao');
             $table->date('data_criacao');
             $table->string('caminho_imagem');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('desafios_id')->nullable()->constrained('desafios')->onDelete('set null');
+            $table->decimal('valor_alcancado', 12, 2)->default(0);
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('campanha_id')->nullable()->constrained('campanhas')->onDelete('set null');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('desenhos');
+        Schema::dropIfExists('acoes');
     }
 };

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Diário de Desenhos')</title>
+    <title>@yield('title', 'Velho Recanto')</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body>
@@ -12,8 +12,8 @@
             <img src="/img/logo.png" width="3%" alt="Logo">
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="/desenhos">Desenhos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/desafios">Desafios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/acoes">Acoes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/campanhas">Campanhas</a></li>
                 </ul>
                 <ul class="navbar-nav">
                     @auth
@@ -36,5 +36,6 @@
     <main class="container mt-4">
         @yield('content')
     </main>
+    @stack('scripts')
 </body>
 </html>

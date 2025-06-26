@@ -1,21 +1,21 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\DesenhosController;
-use App\Http\Controllers\DesafiosController;
+use App\Http\Controllers\AcoesController;
+use App\Http\Controllers\CampanhasController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/dashboard', function () {
-    return view('desenhos.index');
+    return view('acoes.index');
 })->middleware(['auth'])->name('dashboard');
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/', [DesenhosController::class, 'index'])->name('desenhos.index');
-    Route::resource('desenhos', DesenhosController::class);
-    Route::resource('desafios', DesafiosController::class);
-});
+Route::get('/', [AcoesController::class, 'index'])->name('acoes.index');
+Route::resource('acoes', AcoesController::class)->parameters([
+    'acoes' => 'acao'
+]);
+Route::resource('campanhas', CampanhasController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
